@@ -10,7 +10,7 @@ export default function Navbar() {
           <Image
             width={28}
             height={28}
-            src="/favicon.ico"
+            src="/favicon.png"
             className="rounded-full"
             alt="icon"
           />

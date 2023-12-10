@@ -1,21 +1,25 @@
 "use client";
-import React from "react";
-import { TodoContext } from "../context/TodoContext";
-import { useRouter } from "next/navigation";
+import { TodoContext } from "@/app/context/TodoContext";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 export default function Page() {
-  const [title, setTitle] = React.useState("");
-  const [desc, setDesc] = React.useState("");
   const allValues = React.useContext(TodoContext);
   if (!allValues) return null;
-  const { addTodo } = allValues;
+  const { todo, editTodo } = allValues;
+  const { id } = useParams();
+  console.log(id);
   const router = useRouter();
-  const handleAddTodo = (e: any) => {
+  const [title, setTitle] = React.useState("");
+  const [desc, setDesc] = React.useState("");
+  useEffect(() => {
+    const filterTodo = todo.find((e) => e.id === parseInt(id as string));
+    setTitle(filterTodo?.title || "");
+    setDesc(filterTodo?.desc || "");
+  }, [id]);
+  const updateTodo = (e: any) => {
     e.preventDefault();
-    const date = new Date().toLocaleDateString();
-    addTodo(title, desc, date);
-    setDesc("");
-    setTitle("");
+    editTodo(parseInt(id as string), title, desc);
     router.push("/");
   };
   return (
@@ -24,7 +28,7 @@ export default function Page() {
         <div className="mx-auto lg:justify-between">
           <div className="w-full px-4">
             <div className="relative rounded-lg bg-gray-900 p-8 shadow-lg sm:p-12 bg-opacity-70">
-              <form onSubmit={handleAddTodo}>
+              <form onSubmit={updateTodo}>
                 <div className="mb-6">
                   <input
                     className="w-full rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary dark:border-dark-3 dark:bg-transparent dark:text-dark-6"
@@ -60,7 +64,7 @@ export default function Page() {
                     type="submit"
                     className="w-full rounded border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90"
                   >
-                    Add Todo
+                    Update Todo
                   </button>
                 </div>
               </form>
