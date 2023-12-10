@@ -5,10 +5,8 @@ import React, { useEffect } from "react";
 
 export default function Page() {
   const allValues = React.useContext(TodoContext);
-  if (!allValues) return null;
-  const { todo, editTodo } = allValues;
+
   const { id } = useParams();
-  console.log(id);
   const router = useRouter();
   const [title, setTitle] = React.useState("");
   const [desc, setDesc] = React.useState("");
@@ -17,6 +15,8 @@ export default function Page() {
     setTitle(filterTodo?.title || "");
     setDesc(filterTodo?.desc || "");
   }, [id]);
+  if (!allValues) return null;
+  const { todo, editTodo } = allValues;
   const updateTodo = (e: any) => {
     e.preventDefault();
     editTodo(parseInt(id as string), title, desc);

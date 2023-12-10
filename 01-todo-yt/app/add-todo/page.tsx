@@ -7,9 +7,9 @@ export default function Page() {
   const [title, setTitle] = React.useState("");
   const [desc, setDesc] = React.useState("");
   const allValues = React.useContext(TodoContext);
+  const router = useRouter();
   if (!allValues) return null;
   const { addTodo } = allValues;
-  const router = useRouter();
   const handleAddTodo = (e: any) => {
     e.preventDefault();
     const date = new Date().toLocaleDateString();

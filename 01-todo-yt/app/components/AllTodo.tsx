@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 
 export default function AllTodo() {
   const allValues = useContext(TodoContext);
+  const router = useRouter();
   if (!allValues) return null;
   const { todo, deleteTodo } = allValues;
-  const router = useRouter();
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 md:py-6 py-24 mx-auto">
