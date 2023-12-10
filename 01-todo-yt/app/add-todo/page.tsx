@@ -1,30 +1,11 @@
-"use client";
-import React from "react";
-import { TodoContext } from "../context/TodoContext";
-import { useRouter } from "next/navigation";
-
 export default function Page() {
-  const [title, setTitle] = React.useState("");
-  const [desc, setDesc] = React.useState("");
-  const allValues = React.useContext(TodoContext);
-  const router = useRouter();
-  if (!allValues) return null;
-  const { addTodo } = allValues;
-  const handleAddTodo = (e: any) => {
-    e.preventDefault();
-    const date = new Date().toLocaleDateString();
-    addTodo(title, desc, date);
-    setDesc("");
-    setTitle("");
-    router.push("/");
-  };
   return (
     <section className="relative z-1 overflow-hidden py-20 dark:bg-dark lg:py-[60px]">
       <div className="container mx-auto">
         <div className="mx-auto lg:justify-between">
           <div className="w-full px-4">
             <div className="relative rounded-lg bg-gray-900 p-8 shadow-lg sm:p-12 bg-opacity-70">
-              <form onSubmit={handleAddTodo}>
+              <form>
                 <div className="mb-6">
                   <input
                     className="w-full rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary dark:border-dark-3 dark:bg-transparent dark:text-dark-6"
@@ -40,8 +21,6 @@ export default function Page() {
                     className="w-full rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary dark:border-dark-3 dark:bg-transparent dark:text-dark-6"
                     name="title"
                     placeholder="Todo Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
 
@@ -51,8 +30,6 @@ export default function Page() {
                     placeholder="Add description"
                     name="details"
                     className="w-full resize-none rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary dark:border-dark-3 dark:bg-transparent dark:text-dark-6"
-                    value={desc}
-                    onChange={(e) => setDesc(e.target.value)}
                   />
                 </div>
                 <div>
